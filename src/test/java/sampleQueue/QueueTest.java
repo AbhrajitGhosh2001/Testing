@@ -24,13 +24,102 @@ class QueueTest {
 	private Queue<String> q;
 
 	@Test
-	@Disabled
 	@DisplayName("is instantiated with new Queue()")
 	void isInstantiatedWithNew() {
 		new Queue<>();
 	}
+	
+	@Test
+	@DisplayName("is instantiated with new Queue(size)")
+	void isInstantiatedWithNewSize() {
+		new Queue<>(10);
+	}
+
+	@Test
+	@DisplayName("enqueue")
+	void  ifEnqueueWorks(){
+		this.q = new Queue<String>();
+		q.enqueue(SOME_ITEM);
+		assertFalse(q.isEmpty());
+	}
+
+	@Test
+	@DisplayName("enqueuewithmax")
+	void  ifEnqueuewithmaxWorks(){
+		this.q = new Queue<String>(3);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		assertThrows(RuntimeException.class, () -> this.q.enqueue(SOME_ITEM));
+	}
+
+	@Test
+	@DisplayName("dequeue")
+	void  ifDequeueWorks(){
+		int x=0;
+		this.q = new Queue<String>();
+		q.enqueue(SOME_ITEM);
+		if(q.isEmpty()==false){
+			x++;
+			q.dequeue();
+		}
+		assertTrue(x==1&&q.isEmpty());
+	}
+
+
+
+	@Test
+	@DisplayName("Dequeue should throw an Exception if called on empty queue")
+	void dequeueThrowsExceptionOnEmpty(){
+		assertThrows(NoSuchElementException.class, () -> this.q.dequeue());
+	}
+
+	@Test
+	@DisplayName("peek")
+	void  ifpeekWorks(){
+		this.q = new Queue<String>();
+		q.enqueue(SOME_ITEM);
+		assertTrue(q.peek()==SOME_ITEM);
+	}
+
+	@Test
+	@DisplayName("length")
+	void  iflengthWorks(){
+		this.q = new Queue<String>();
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		assertTrue(q.length()==4);
+	}
+
+	@Test
+	@DisplayName("RemoveAllWorks")
+	void  ifRemoveAllWorks(){
+		int x=0;
+		this.q = new Queue<String>();
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		q.enqueue(SOME_ITEM);
+		if(q.length()==4){
+			x++;
+			q.removeAll();
+		}
+		assertTrue(x==1&&q.isEmpty());
+	}
+
+	@Test
+	@DisplayName("Verify Queue isEmpty returns false when queue is not empty")
+	void isEmptyWorks() {
+		assertTrue(q.isEmpty());
+	}
+
+
+
 
 	@BeforeEach
+	@Disabled
 	void init() {
 		this.q = new Queue<String>();
 	}
@@ -40,6 +129,7 @@ class QueueTest {
 	void isEmptyShouldGiveTrueOnQueueInit() {
 		assertTrue(q.isEmpty());
 	}
+
 	@Test
 	@DisplayName("Peek should throw an Exception if called on empty queue")
 	void peekThrowsExceptionOnEmpty(){
@@ -48,12 +138,12 @@ class QueueTest {
 
 	//Example of Wrong Test! 
 	@Test
-	@Disabled
 	@DisplayName("Verify Queue isEmpty returns false when queue is not empty")
 	void isEmptyShouldGiveFalseWhenQueueIsNotEmpty() {
 		this.q.enqueue(SOME_ITEM);
 		assertFalse(q.isEmpty());
 	}
 
+	
 	
 }

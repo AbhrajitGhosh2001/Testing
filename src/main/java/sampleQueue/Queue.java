@@ -139,8 +139,8 @@ public class Queue<Item> implements Iterable<Item> {
         // which caused the bug.!!!!!!!!!!!
         // !!!!!!!!!!!!!!!!
         //
-        // if (isEmpty())
-        // throw new NoSuchElementException("Queue underflow");
+        if (isEmpty())
+        throw new NoSuchElementException("Queue underflow");
         //
         // !!!!!!!!!!!!!!!!
         // End
